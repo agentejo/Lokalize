@@ -216,10 +216,21 @@
 
     </div>
 
+    <cp-actionbar>
+        <div class="uk-container uk-container-center">
+
+            <button class="uk-button uk-button-large uk-button-primary" onclick="{ submit }">@lang('Save')</button>
+
+            <a class="uk-button uk-button-large uk-button-link" href="@route('/lokalize')">
+                @lang('Close')
+            </a>
+        </div>
+    </cp-actionbar>
+
 
     <script type="view/script">
 
-        var $this = this, _cache, _suggestions = {}, suggestionIdle;
+        var $this = this, _suggestions = {}, suggestionIdle;
 
         this.mixin(RiotBindMixin);
 
@@ -264,8 +275,6 @@
                 }
             });
         }
-
-        _cache = JSON.stringify(this.project);
 
         LokalizeTranslator.init({{ json_encode($app->retrieve('lokalize/translationService', null)) }});
 
@@ -326,17 +335,6 @@
                 return false;
             });
         });
-
-        this.on('update', _.debounce(function() {
-
-            var json = JSON.stringify(this.project);
-
-            if (_cache != JSON.stringify(this.project)) {
-                _cache = json;
-                $this.submit()
-            }
-
-        }, 500));
 
         addLanguage(e) {
             this.project.languages.push(e.item.lang);
@@ -550,6 +548,8 @@
 
 
                 App.request('/lokalize/save_project', {project: project}).then(function(project) {
+
+                    App.ui.notify("Project saved.", "success");
 
                     $this.project.done = project.done;
                     $this.update();

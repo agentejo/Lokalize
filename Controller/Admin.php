@@ -52,6 +52,8 @@ class Admin extends \Cockpit\AuthController {
             return false;
         }
 
+        $this->app->trigger('lokalize.saveproject', [&$project]);
+
         return $this->module('lokalize')->saveProject($project);
     }
 
