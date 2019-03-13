@@ -137,7 +137,7 @@
 
         <div class="uk-grid">
             <div class="uk-width-medium-1-4">
-                <a class="uk-display uk-text-truncate {!key && 'uk-text-danger'}" onclick="{ parent.editKey }">{key || 'n/a' }</a>
+                <a class="uk-display-block uk-text-truncate {!key && 'uk-text-danger'}" onclick="{ parent.editKey }">{key || 'n/a' }</a>
                 <div class="uk-text-small uk-text-muted uk-margin-small-top">{parent.project.keys[key].info}</div>
             </div>
 
@@ -147,7 +147,13 @@
                     <div><span class="lang-badge uk-badge uk-badge-outline uk-text-primary uk-margin-right uk-text-truncate" title="{parent.project.lang}">{parent.languages[parent.project.lang]}</span></div>
                     <div class="uk-flex-item-1">
                         <input class="uk-width-1-1 uk-form-blank uk-text-primary" placeholder="😱 @lang('Empty')" bind="project.values.{parent.project.lang}['{key}']" if="{!parent.project.keys[key].multiline}">
+
+                        @if($app['config/lokalize/multilineMarkdown'])
+                        <cp-field type="markdown" class="uk-width-1-1 uk-display-block" placeholder="😱 @lang('Empty')" bind="project.values.{parent.project.lang}['{key}']" opts="{ {height:150, } }" if="{parent.project.keys[key].multiline}"></cp-field>
+                        @else
                         <textarea class="uk-width-1-1 uk-form-blank uk-text-primary" placeholder="😱 @lang('Empty')" bind="project.values.{parent.project.lang}['{key}']" if="{parent.project.keys[key].multiline}"></textarea>
+                        @endif
+
                     </div>
                 </div>
 
@@ -156,7 +162,11 @@
                     <div class="uk-flex-item-1">
 
                         <input class="uk-width-1-1 uk-form-blank lang-input" placeholder="😱 @lang('Empty')" bind="project.values.{lang}['{key}']" onfocus="{parent.suggestTranslation}" onblur="{parent.hideTranslation}" lang="{lang}" key="{key}" if="{!parent.project.keys[key].multiline}">
+                        @if($app['config/lokalize/multilineMarkdown'])
+                        <cp-field type="markdown" class="uk-width-1-1 uk-display-block" placeholder="😱 @lang('Empty')" bind="project.values.{lang}['{key}']" opts="{ {height:150, placeholder:'😱 @lang('Empty')'} }" if="{parent.project.keys[key].multiline}"></cp-field>
+                        @else
                         <textarea class="uk-width-1-1 uk-form-blank" placeholder="😱 @lang('Empty')" bind="project.values.{lang}['{key}']" onfocus="{parent.suggestTranslation}" onblur="{parent.hideTranslation}" lang="{lang}" key="{key}" if="{parent.project.keys[key].multiline}"></textarea>
+                        @endif
 
                         <div class="lang-suggestion uk-panel-framed uk-margin-small-top uk-margin-small-bottom uk-text-small uk-animation-fade uk-flex" if="{parent.$suggestion.key && parent.$suggestion.key==key && parent.$suggestion.lang==lang && parent.$suggestion.trans !== false }">
                             <strong>@lang('Suggestion'):</strong>
@@ -171,9 +181,9 @@
 
             </div>
 
-            <div>
-                <a class="uk-margin-small-left" onclick="{ parent.duplicateKey }" title="@lang('Duplicate Key')"><i class="uk-icon-copy uk-icon-button"></i></a>
-                <a class="uk-margin-small-left" onclick="{ parent.removeKey }" title="@lang('Delete Key')"><i class="uk-icon-trash-o uk-icon-button"></i></a>
+            <div class="uk-margin-small-left">
+                <a class="uk-display-block" onclick="{ parent.duplicateKey }" title="@lang('Duplicate Key')"><i class="uk-icon-copy uk-icon-button"></i></a>
+                <a class="uk-display-block uk-margin-small-top" onclick="{ parent.removeKey }" title="@lang('Delete Key')"><i class="uk-icon-trash-o uk-icon-button"></i></a>
             </div>
 
         </div>
