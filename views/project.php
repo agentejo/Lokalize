@@ -137,7 +137,7 @@
 
         <div class="uk-grid">
             <div class="uk-width-medium-1-4">
-                <a class="uk-display-block uk-text-truncate {!key && 'uk-text-danger'}" onclick="{ parent.editKey }">{key || 'n/a' }</a>
+                <a class="uk-display-block uk-text-truncate {!key && 'uk-text-danger'}" onclick="{ parent.editKey }" title="{key || 'n/a' }">{key || 'n/a' }</a>
                 <div class="uk-text-small uk-text-muted uk-margin-small-top">{parent.project.keys[key].info}</div>
             </div>
 
@@ -529,6 +529,7 @@
                     done  = 0;
 
                 project.done = {}
+                project.values = project.values || {};
 
                 langs.forEach(function(lang) {
                     project.done[lang] = 0;
