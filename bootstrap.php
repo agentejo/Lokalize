@@ -1,5 +1,6 @@
 <?php
 
+include(__DIR__.'/vendor/autoload.php');
 
 $this->module("lokalize")->extend([
 

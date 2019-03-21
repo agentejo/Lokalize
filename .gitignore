@@ -5,6 +5,7 @@
 .project
 .settings
 .idea
+composer.lock
 /node_modules
 !.gitignore
 !.gitkeep

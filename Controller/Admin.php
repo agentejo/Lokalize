@@ -81,7 +81,13 @@ class Admin extends \Cockpit\AuthController {
         }
 
         $languages = array_merge([$project['lang']], $project['languages']);
-        $rows      = ['key;info;'.implode(';', $languages)];
+        $rows      = [array_merge(['key','info'], $languages)];
+
+        // setup csv writer
+        $csv = \League\Csv\Writer::createFromFileObject(new \SplTempFileObject());
+        $csv->setOutputBOM(\League\Csv\Reader::BOM_UTF8);
+        $csv->setDelimiter(';');
+        $csv->setNewline("\r\n");
 
         foreach ($project['keys'] as $key => $meta) {
 
@@ -98,10 +104,15 @@ class Admin extends \Cockpit\AuthController {
 
             }
 
-            $rows[] = implode(';', $row);
+            $rows[] = $row;
         }
 
-        return implode("\n", $rows);
+        $csv->insertAll($rows);
+
+        header('Content-Type: text/csv; charset=UTF-8');
+        header('Content-Disposition: attachment; filename="'.$this->app->helper('utils')->sluggify($project['name']).'.csv"');
+        $csv->output();
+        $this->app->stop();
     }
 
 
@@ -131,7 +142,11 @@ class Admin extends \Cockpit\AuthController {
             $delimiter = ',';
         }
 
-        $header = explode($delimiter, trim($content[0]));
+        $reader = \League\Csv\Reader::createFromPath($file['tmp_name'], 'r');
+        $reader->setDelimiter($delimiter);
+        $reader->setOutputBOM($reader->getInputBOM());
+
+        $header = explode($delimiter, trim(str_replace($reader->getInputBOM(), '', $content[0])));
 
         if ($header[0] != 'key') {
             return false;
@@ -140,14 +155,14 @@ class Admin extends \Cockpit\AuthController {
         $save = false;
         $languages = array_merge([$project['lang']], $project['languages']);
 
-        for ($i=1; $i < count($content); $i++) {
+        $reader->setHeaderOffset(0);
 
-            $row = trim($content[$i]);
+
+        foreach ($reader->getRecords() as $index => $row) {
 
             if (!$row) continue;
 
-            $row = str_getcsv($row, $delimiter);
-            $key = $row[0];
+            $key = $row['key'];
 
             if (!isset($project['keys'][$key])) {
 
@@ -164,11 +179,11 @@ class Admin extends \Cockpit\AuthController {
 
                 if ($lang == 'info' ) {
 
-                    $project['keys'][$key]['info'] = trim($row[$l]);
+                    $project['keys'][$key]['info'] = trim($row['info']);
 
                 } elseif (in_array($lang, $languages)) {
 
-                    $value = $row[$l];
+                    $value = $row[$lang];
 
                     if ($value) {
 
