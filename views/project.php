@@ -344,6 +344,26 @@
                 $this.submit();
                 return false;
             });
+
+            // lock resource
+            var idle = setInterval(function() {
+                if (!$this.project._id) return;
+                App.request('/cockpit/utils/lockResourceId/'+$this.project._id, {});
+            }, 120000);
+
+            // unlock resource
+            window.addEventListener("beforeunload", function (event) {
+
+                clearInterval(idle);
+
+                if (!$this.project._id) return;
+
+                if (navigator.sendBeacon) {
+                    navigator.sendBeacon(App.route('/cockpit/utils/unlockResourceId/'+$this.project._id));
+                } else {
+                    App.request('/cockpit/utils/unlockResourceId/'+$this.project._id, {});
+                }
+            });
         });
 
         addLanguage(e) {

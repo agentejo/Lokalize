@@ -65,6 +65,12 @@ class Admin extends \Cockpit\AuthController {
             return false;
         }
 
+        if (!$this->app->helper('admin')->isResourceEditableByCurrentUser($projectId, $meta)) {
+            return $this->render('cockpit:views/base/locked.php', compact('meta'));
+        }
+
+        $this->app->helper('admin')->lockResourceId($projectId);
+
         $project['keys'] = new \ArrayObject($project['keys']);
 
         $languages = $this->module('lokalize')->languages();
