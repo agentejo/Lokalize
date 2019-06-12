@@ -84,7 +84,9 @@
                         <a href="{App.route('/lokalize/_project/'+project._id)}"><i class="uk-icon-pencil uk-icon-button"></i></a>
                         <a class="uk-margin-small-left" onclick="{parent.clone}"><i class="uk-icon-copy uk-icon-button"></i></a>
                         <a class="uk-margin-small-left" href="{App.route('/lokalize/export/'+project._id)}" download="{project.name}.csv"><i class="uk-icon-download uk-icon-button"></i></a>
+                        @hasaccess?('lokalize', 'projects_delete')
                         <a class="uk-margin-small-left" onclick="{ parent.remove }"><i class="uk-icon-trash-o uk-icon-button"></i></a>
+                        @end
                     </div>
                 </div>
             </div>
