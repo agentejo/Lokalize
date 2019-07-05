@@ -133,7 +133,7 @@
 
     </div>
 
-    <div class="uk-panel uk-panel-box uk-panel-card uk-margin lokalize-keys" each="{key in Object.keys(project.keys).sort() }" show="{ infilter(key) }">
+    <div class="uk-panel uk-panel-box uk-panel-card uk-margin lokalize-keys" each="{key in getVisibleKeys() }">
 
         <div class="uk-grid">
             <div class="uk-width-medium-1-4">
@@ -189,6 +189,8 @@
         </div>
 
     </div>
+
+    <div ref="scrollIndicator"></div>
 
     <div ref="modalkey" class="uk-modal">
 
@@ -288,6 +290,9 @@
 
         LokalizeTranslator.init({{ json_encode($app->retrieve('lokalize/translationService', null)) }});
 
+        this.keys = Object.keys(this.project.keys).sort();
+        this.visible = 0;
+
         this.on('mount', function(){
 
             App.assets.require(['/assets/lib/uikit/js/components/upload.js'], function() {
@@ -364,7 +369,38 @@
                     App.request('/cockpit/utils/unlockResourceId/'+$this.project._id, {});
                 }
             });
+
+            var observer = new IntersectionObserver(function(entries, observer) {
+
+                if (!$this.keys.length || $this.visible > $this.keys.length) return;
+
+                $this.visible += 20;
+                $this.update();
+
+            }, {
+                rootMargin: '20px 0px',
+                threshold: 0.01
+            });
+
+            setTimeout(function() {
+                observer.observe($this.refs.scrollIndicator);
+            }, 50);
         });
+
+        getVisibleKeys() {
+
+            if (!this.visible) return;
+
+            var keys = this.keys;
+
+            if (this.refs.txtfilter.value) {
+                keys = keys.filter(function(key) {
+                    return $this.infilter(key);
+                })
+            }
+
+            return keys.slice(0, this.visible);
+        }
 
         addLanguage(e) {
             this.project.languages.push(e.item.lang);
@@ -428,6 +464,7 @@
                     }
                 });
 
+                $this.keys = Object.keys($this.project.keys).sort();
                 $this.update();
             });
         }
@@ -446,6 +483,8 @@
                 })
 
                 delete $this.project.keys[key];
+
+                $this.keys = Object.keys($this.project.keys).sort();
                 $this.update();
             })
         }
@@ -472,6 +511,7 @@
                 });
 
                 delete this.project.keys[this.$key._];
+                $this.keys = Object.keys($this.project.keys).sort();
             }
 
             this.$key = null;
@@ -526,7 +566,7 @@
         }
 
         updatefilter(e) {
-
+            $this.visible = 20;
         }
 
         infilter(key) {
