@@ -291,7 +291,7 @@
         LokalizeTranslator.init({{ json_encode($app->retrieve('lokalize/translationService', null)) }});
 
         this.keys = Object.keys(this.project.keys).sort();
-        this.visible = 0;
+        this.visible = 20;
 
         this.on('mount', function(){
 
@@ -372,9 +372,9 @@
 
             var observer = new IntersectionObserver(function(entries, observer) {
 
-                if (!$this.keys.length || $this.visible > $this.keys.length) return;
+                if (!$this.keys.length || $this.visible >= $this.keys.length) return;
 
-                $this.visible += 20;
+                $this.visible += ($this.visible+20) > $this.keys.length ? ($this.keys.length - $this.visible) : 20;
                 $this.update();
 
             }, {
@@ -511,8 +511,9 @@
                 });
 
                 delete this.project.keys[this.$key._];
-                $this.keys = Object.keys($this.project.keys).sort();
             }
+
+            this.keys = Object.keys(this.project.keys).sort();
 
             this.$key = null;
         }
