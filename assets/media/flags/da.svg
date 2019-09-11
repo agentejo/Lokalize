@@ -1,45 +1,13 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
-<circle style="fill:#F0F0F0;" cx="256" cy="256" r="256"/>
-<g>
-	<path style="fill:#D80027;" d="M200.349,222.609h309.484C493.47,97.002,386.067,0,256,0c-19.115,0-37.732,2.113-55.652,6.085
-		v216.524H200.349z"/>
-	<path style="fill:#D80027;" d="M133.565,222.608V31.127C63.272,69.481,12.95,139.832,2.167,222.609h131.398V222.608z"/>
-	<path style="fill:#D80027;" d="M133.564,289.391H2.167c10.783,82.777,61.105,153.128,131.398,191.481L133.564,289.391
-		L133.564,289.391z"/>
-	<path style="fill:#D80027;" d="M200.348,289.392v216.523C218.268,509.887,236.885,512,256,512
-		c130.067,0,237.47-97.002,253.833-222.609H200.348V289.392z"/>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 500 500">
+  <defs>
+    <path id="da-a" d="M250 0C111.928 0 0 111.928 0 250s111.928 250 250 250 250-111.928 250-250S388.072 0 250 0z"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <mask id="da-b" fill="#fff">
+      <use xlink:href="#da-a"/>
+    </mask>
+    <path fill="#C60C30" d="M-81.858 500h663.716V0H-81.858z" mask="url(#da-b)"/>
+    <path fill="#FFF" d="M131.175 500h71.578V0h-71.578z" mask="url(#da-b)"/>
+    <path fill="#FFF" d="M-81.858 285.788h663.716V214.21H-81.858z" mask="url(#da-b)"/>
+  </g>
 </svg>
