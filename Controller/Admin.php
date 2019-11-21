@@ -52,6 +52,16 @@ class Admin extends \Cockpit\AuthController {
             return false;
         }
 
+        $languages = array_merge([$project['lang']], $project['languages']);
+
+        foreach ($languages as $language) {
+            foreach ($project['keys'] as $key => $value) {
+                if (!isset($project['values'][$language][$key])) {
+                    $project['values'][$language][$key] = '';
+                }
+            }
+        }
+
         $this->app->trigger('lokalize.saveproject', [&$project]);
 
         return $this->module('lokalize')->saveProject($project);
