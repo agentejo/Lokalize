@@ -183,7 +183,9 @@
 
             <div class="uk-margin-small-left">
                 <a class="uk-display-block" onclick="{ parent.duplicateKey }" title="@lang('Duplicate Key')"><i class="uk-icon-copy uk-icon-button"></i></a>
+                @hasaccess?('lokalize', 'keys_delete')
                 <a class="uk-display-block uk-margin-small-top" onclick="{ parent.removeKey }" title="@lang('Delete Key')"><i class="uk-icon-trash-o uk-icon-button"></i></a>
+                @end
             </div>
 
         </div>
