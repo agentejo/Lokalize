@@ -1,13 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 500 500">
-  <defs>
-    <path id="sv-a" d="M250 0C111.928 0 0 111.928 0 250s111.928 250 250 250 250-111.928 250-250S388.072 0 250 0z"/>
-  </defs>
-  <g fill="none" fill-rule="evenodd">
-    <mask id="sv-b" fill="#fff">
-      <use xlink:href="#sv-a"/>
-    </mask>
-    <path fill="#005293" d="M-150 500h800V0h-800z" mask="url(#sv-b)"/>
-    <path fill="#FECB00" d="M100 500h100V0H100z" mask="url(#sv-b)"/>
-    <path fill="#FECB00" d="M-150 300h800V200h-800z" mask="url(#sv-b)"/>
-  </g>
-</svg>
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><mask id="a" fill="#fff"><path d="m250 0c-138.072 0-250 111.928-250 250s111.928 250 250 250 250-111.928 250-250-111.928-250-250-250z" fill="#fff" fill-rule="evenodd"/></mask><g fill="none" fill-rule="evenodd"><path d="m-150 500h800v-500h-800z" fill="#005293" mask="url(#a)"/><g fill="#fecb00"><path d="m100 500h100v-500h-100z" mask="url(#a)"/><path d="m-150 300h800v-100h-800z" mask="url(#a)"/></g></g></svg>

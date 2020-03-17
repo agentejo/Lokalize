@@ -1,15 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 500 500">
-  <defs>
-    <path id="no-a" d="M250 0C111.928 0 0 111.928 0 250s111.928 250 250 250 250-111.928 250-250S388.072 0 250 0z"/>
-  </defs>
-  <g fill="none" fill-rule="evenodd">
-    <mask id="no-b" fill="#fff">
-      <use xlink:href="#no-a"/>
-    </mask>
-    <path fill="#EF2B2D" d="M-93.75 500h687.5V0h-687.5z" mask="url(#no-b)"/>
-    <path fill="#FFF" d="M93.75 500h125V0h-125z" mask="url(#no-b)"/>
-    <path fill="#FFF" d="M-93.75 312.5h687.5v-125h-687.5z" mask="url(#no-b)"/>
-    <path fill="#002868" d="M125 500h62.5V0H125z" mask="url(#no-b)"/>
-    <path fill="#002868" d="M-93.75 281.25h687.5v-62.5h-687.5z" mask="url(#no-b)"/>
-  </g>
-</svg>
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><mask id="a" fill="#fff"><path d="m250 0c-138.072 0-250 111.928-250 250s111.928 250 250 250 250-111.928 250-250-111.928-250-250-250z" fill="#fff" fill-rule="evenodd"/></mask><g fill="none" fill-rule="evenodd"><path d="m-93.75 500h687.5v-500h-687.5z" fill="#ef2b2d" mask="url(#a)"/><path d="m93.75 500h125v-500h-125z" fill="#fff" mask="url(#a)"/><path d="m-93.75 312.5h687.5v-125h-687.5z" fill="#fff" mask="url(#a)"/><g fill="#002868"><path d="m125 500h62.5v-500h-62.5z" mask="url(#a)"/><path d="m-93.75 281.25h687.5v-62.5h-687.5z" mask="url(#a)"/></g></g></svg>

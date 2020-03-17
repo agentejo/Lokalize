@@ -1,13 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 500 500">
-  <defs>
-    <path id="da-a" d="M250 0C111.928 0 0 111.928 0 250s111.928 250 250 250 250-111.928 250-250S388.072 0 250 0z"/>
-  </defs>
-  <g fill="none" fill-rule="evenodd">
-    <mask id="da-b" fill="#fff">
-      <use xlink:href="#da-a"/>
-    </mask>
-    <path fill="#C60C30" d="M-81.858 500h663.716V0H-81.858z" mask="url(#da-b)"/>
-    <path fill="#FFF" d="M131.175 500h71.578V0h-71.578z" mask="url(#da-b)"/>
-    <path fill="#FFF" d="M-81.858 285.788h663.716V214.21H-81.858z" mask="url(#da-b)"/>
-  </g>
-</svg>
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><mask id="a" fill="#fff"><path d="m250 0c-138.072 0-250 111.928-250 250s111.928 250 250 250 250-111.928 250-250-111.928-250-250-250z" fill="#fff" fill-rule="evenodd"/></mask><g fill="none" fill-rule="evenodd"><path d="m-81.858 500h663.716v-500h-663.716z" fill="#c60c30" mask="url(#a)"/><g fill="#fff"><path d="m131.175 500h71.578v-500h-71.578z" mask="url(#a)"/><path d="m-81.858 285.788h663.716v-71.578h-663.716z" mask="url(#a)"/></g></g></svg>
