@@ -601,7 +601,11 @@
         }
 
         updatefilter(e) {
-            $this.visible = 20;
+            if (e.key === "Escape") {
+                this.clearfilter();
+            } else {
+                $this.visible = 20;
+            }
         }
 
         infilter(key) {
