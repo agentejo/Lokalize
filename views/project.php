@@ -231,7 +231,7 @@
 
                 <div class="uk-form-row">
                     <label class="uk-text-small">@lang('Key')</label>
-                    <input class="uk-width-1-1" type="text" placeholder="@lang('Key name')" bind-event="input" bind="$key.name" required autofocus>
+                    <input ref="keyfield" class="uk-width-1-1" type="text" placeholder="@lang('Key name')" bind-event="input" bind="$key.name" required>
                 </div>
 
                 <div class="uk-form-row">
@@ -459,6 +459,7 @@
 
             setTimeout(function() {
                 UIkit.modal($this.refs.modalkey).show();
+                $this.refs.keyfield.focus();
             }, 100);
         }
 
