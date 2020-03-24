@@ -231,7 +231,7 @@
 
                 <div class="uk-form-row">
                     <label class="uk-text-small">@lang('Key')</label>
-                    <input class="uk-width-1-1" type="text" placeholder="@lang('Key name')" bind-event="input" bind="$key.name" required>
+                    <input class="uk-width-1-1" type="text" placeholder="@lang('Key name')" bind-event="input" bind="$key.name" required autofocus>
                 </div>
 
                 <div class="uk-form-row">
