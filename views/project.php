@@ -525,6 +525,8 @@
 
             UIkit.modal($this.refs.modalkey).hide();
 
+            this.keys = Object.keys(this.project.keys).sort();
+
             this.project.keys[this.$key.name] = {
                 info: this.$key.info,
                 multiline: this.$key.multiline
@@ -543,7 +545,7 @@
                 delete this.project.keys[this.$key._];
             }
 
-            this.keys = Object.keys(this.project.keys).sort();
+            this.keys.unshift(this.$key.name);
 
             this.$key = null;
         }
