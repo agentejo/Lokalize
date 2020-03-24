@@ -76,7 +76,7 @@
 
         <div class="uk-width-1-4">
             <div class="uk-form-icon uk-form uk-text-muted uk-display-block">
-                <i class="uk-icon-filter"></i>
+                <a class="uk-icon-filter" style="pointer-events: all" onclick="{ clearfilter }"></a>
                 <input class="uk-form-large uk-form-blank" type="text" ref="txtfilter" placeholder="@lang('Filter...')" onkeyup="{ updatefilter }">
 
                 <div class="uk-form-select filter-selector">
@@ -594,6 +594,10 @@
                 $this.$suggestion.key = null;
                 $this.update();
             }, 250);
+        }
+
+        clearfilter() {
+            this.refs.txtfilter.value = "";
         }
 
         updatefilter(e) {
