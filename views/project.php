@@ -12,6 +12,14 @@
     </ul>
 </div>
 
+@if(isset($project['info']) && $project['info'])
+<div class="uk-margin-large-bottom uk-text-small uk-text-muted">
+    <div>
+        {{ htmlspecialchars($project['info']) }}
+    </div>
+</div>
+@endif
+
 
 <div riot-view>
 
@@ -120,7 +128,7 @@
         </div>
 
     </div>
-
+    
 
     <div class="uk-width-medium-1-1 uk-viewport-height-1-2 uk-container-center uk-text-center uk-flex uk-flex-middle uk-flex-center" if="{ !App.Utils.count(project.keys) }">
 
