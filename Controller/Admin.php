@@ -92,7 +92,7 @@ class Admin extends \Cockpit\AuthController {
         // setup csv writer
         $csv = \League\Csv\Writer::createFromFileObject(new \SplTempFileObject());
         $csv->setOutputBOM(\League\Csv\Reader::BOM_UTF8);
-        $csv->setDelimiter(';');
+        $csv->setDelimiter($this->app->retrieve('config/lokalize/delimiter', ';'));
         $csv->setNewline("\r\n");
 
         foreach ($project['keys'] as $key => $meta) {
@@ -126,7 +126,7 @@ class Admin extends \Cockpit\AuthController {
 
         $project    = $this->module('lokalize')->project($projectId);
         $createKeys = $this->app->retrieve('config/lokalize/importkeys', false);
-        $delimiter  = ';';
+        $delimiter  = $this->app->retrieve('config/lokalize/delimiter', ';');
 
         if (!$project) {
             return false;
