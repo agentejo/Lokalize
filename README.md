@@ -15,7 +15,7 @@ Configuration `config/config.yaml`:
 lokalize:
     importkeys: false,
     publicAccess: false,
-    delimiter: false,
+    delimiter: ";",
     translationService:
         provider: Google // or Yandex
         apikey: AIzaxxx
