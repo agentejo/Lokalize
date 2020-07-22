@@ -15,7 +15,7 @@
 @if(isset($project['info']) && $project['info'])
 <div class="uk-margin-large-bottom uk-text-small uk-text-muted">
     <div>
-        {{ htmlspecialchars($project['info']) }}
+        {{ nl2br(htmlspecialchars($project['info'])) }}
     </div>
 </div>
 @endif
@@ -50,6 +50,19 @@
             padding: 4px !important;
             transition: none;
         }
+
+        .field-info {
+            all: unset;
+            white-space: pre;
+            line-height: 1.1;
+        }
+
+        .filter-selector {
+            position:absolute;
+            top:50%;
+            right:0;
+            transform:translateY(-50%)
+        }
     </style>
 
     <div ref="uploadprogress" class="uk-margin uk-hidden">
@@ -61,10 +74,18 @@
 
     <div class="uk-grid uk-flex-middle">
 
-        <div>
-            <div class="uk-form-icon uk-form uk-text-muted">
+        <div class="uk-width-1-4">
+            <div class="uk-form-icon uk-form uk-text-muted uk-display-block">
                 <i class="uk-icon-filter"></i>
-                <input class="uk-form-large uk-form-blank" type="text" ref="txtfilter" placeholder="@lang('Filter keys...')" onkeyup="{ updatefilter }">
+                <input class="uk-form-large uk-form-blank" type="text" ref="txtfilter" placeholder="@lang('Filter...')" onkeyup="{ updatefilter }">
+
+                <div class="uk-form-select filter-selector">
+                    <span class="uk-badge uk-badge-outline uk-text-muted">in {filterTarget || 'keys'}</span>
+                    <select bind="filterTarget">
+                        <option value="keys">Keys</option>
+                        <option value="values">Values</option>
+                    </select>
+                </div>
             </div>
         </div>
 
@@ -146,7 +167,7 @@
         <div class="uk-grid">
             <div class="uk-width-medium-1-4">
                 <a class="uk-display-block uk-text-truncate {!key && 'uk-text-danger'}" onclick="{ parent.editKey }" title="{key || 'n/a' }">{key || 'n/a' }</a>
-                <div class="uk-text-small uk-text-muted uk-margin-small-top">{parent.project.keys[key].info}</div>
+                <div class="uk-text-small uk-text-muted uk-margin-small-top"><pre class="field-info">{parent.project.keys[key].info}</pre></div>
             </div>
 
             <div class="uk-flex-item-1 uk-form">
@@ -301,7 +322,7 @@
         this.keys = Object.keys(this.project.keys).sort();
         this.visible = 20;
 
-        this.on('mount', function(){
+        this.on('mount', function() {
 
             App.assets.require(['/assets/lib/uikit/js/components/upload.js'], function() {
 
@@ -432,7 +453,7 @@
             this.$key = {
                 name: '',
                 info: '',
-                multiline: true
+                multiline: false
             };
 
             setTimeout(function() {
@@ -584,7 +605,22 @@
                 return true;
             }
 
-            return key.toLowerCase().indexOf(this.refs.txtfilter.value.toLowerCase()) !== -1;
+            var target = this.filterTarget || 'keys';
+
+            if (target == 'keys') {
+                return key.toLowerCase().indexOf(this.refs.txtfilter.value.toLowerCase()) !== -1;
+            }
+
+            var langs = Object.keys(this.project.values), keys = Object.keys(this.keys);
+
+            for (var i=0;i<langs.length;i++) {
+                
+                if (this.project.values[langs[i]] && this.project.values[langs[i]][key] && this.project.values[langs[i]][key].toLowerCase().indexOf(this.refs.txtfilter.value.toLowerCase()) !== -1) {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         submit(e) {

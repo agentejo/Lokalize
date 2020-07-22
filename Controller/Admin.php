@@ -52,6 +52,17 @@ class Admin extends \Cockpit\AuthController {
             return false;
         }
 
+        if (isset($project['_id']) && isset($project['_modified'])) {
+            
+            $_project = $this->module('lokalize')->project($project['_id']);
+
+            if ($_project['_modified'] > $project['_modified']) {
+                $project = array_replace_recursive($_project, $project);
+            }
+        }
+
+        $project['_modified'] = time();
+
         $this->app->trigger('lokalize.saveproject', [&$project]);
 
         return $this->module('lokalize')->saveProject($project);
@@ -162,7 +173,6 @@ class Admin extends \Cockpit\AuthController {
         $languages = array_merge([$project['lang']], $project['languages']);
 
         $reader->setHeaderOffset(0);
-
 
         foreach ($reader->getRecords() as $index => $row) {
 
