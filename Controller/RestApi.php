@@ -22,6 +22,14 @@ class RestApi extends \LimeExtra\Controller {
             $obj =new \ArrayObject(isset($project['values']) ? $project['values'] : []);
         }
 
+        if (!isset($obj[$project['lang']])) {
+            $obj[$project['lang']] = new \ArrayObject([]);
+        }
+
+        foreach ((array)$project['languages'] as $lang) {
+            if (!isset($obj[$lang]))  $obj[$lang] = new \ArrayObject([]);
+        }
+
         return $obj;
     }
 }
