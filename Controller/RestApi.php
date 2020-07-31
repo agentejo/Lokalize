@@ -32,4 +32,21 @@ class RestApi extends \LimeExtra\Controller {
 
         return $obj;
     }
+
+    public function updateProject($name) {
+        $values = $this->param('values');
+        $project = $this->app->storage->findOne('lokalize/projects', [
+            'name' => $name
+        ]);
+
+        if (!$values || !$name || !$project) {
+            return false;
+        }
+
+        $_project = $this->module('lokalize')->project($project['_id']);
+        $_project['values'] = array_replace_recursive($_project["values"], $values);
+        $_project['_modified'] = time();
+
+        return $this->module('lokalize')->saveProject($_project);
+    }
 }

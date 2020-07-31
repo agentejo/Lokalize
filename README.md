@@ -27,13 +27,25 @@ lokalize:
 Get localized strings of a project:
 
 ```
-/api/lokalize/project/{name}?token=*apitoken*
+GET /api/lokalize/project/{name}?token=*apitoken*
 ```
 
 Get strings for a specific language
 
 ```
-/api/lokalize/project/{name}/{local}?token=*apitoken*
+GET /api/lokalize/project/{name}/{local}?token=*apitoken*
+```
+
+Update localized strings of a project:
+
+```
+PATCH /api/lokalize/project/{name}?token=*apitoken*
+```
+
+Update strings for a specific language
+
+```
+PATCH /api/lokalize/project/{name}/{local}?token=*apitoken*
 ```
 
 ### 💐 SPONSORED BY
