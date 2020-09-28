@@ -64,14 +64,24 @@ $this->module("lokalize")->extend([
 
     'project' => function($id) {
 
-        return $this->app->storage->findOne('lokalize/projects', [
+        $project = $this->app->storage->findOne('lokalize/projects', [
             '_id' => $id
         ]);
+
+        if ($project && $this->app->retrieve('config/lokalize/persistKeys') && $keyspath = $this->app->path("#storage:lokalize/keys/{$project['name']}.php")) {
+            $project['keys'] = array_merge(include($keyspath), $project['keys']);
+        }
+
+        return $project;
     },
 
     'saveProject' => function($project) {
 
         $this->app->storage->save('lokalize/projects', $project);
+
+        if ($this->app->retrieve('config/lokalize/persistKeys')) {
+            $this->app->helper('fs')->write('#storage:lokalize/keys/'.$project['name'].'.php', "<?php\n return ".var_export($project['keys'], true).";");
+        }
 
         return $project;
     },
@@ -79,6 +89,10 @@ $this->module("lokalize")->extend([
     'removeProject' => function($project) {
 
         $id = is_string($project) ? $project : $project['_id'];
+
+        if ($this->app->retrieve('config/lokalize/persistKeys') && isset($project['name'])) {
+            $this->app->helper('fs')->delete('#storage:lokalize/keys/'.$project['name'].'.php');
+        }
 
         return $this->app->storage->remove('lokalize/projects', ['_id' => $id]);
     }
