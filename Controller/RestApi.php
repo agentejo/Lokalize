@@ -17,17 +17,52 @@ class RestApi extends \LimeExtra\Controller {
         }
 
         if ($lang) {
+
             $obj = new \ArrayObject(isset($project['values'][$lang]) ? $project['values'][$lang] : []);
         } else {
+
             $obj = new \ArrayObject(isset($project['values']) ? $project['values'] : []);
+
+            if (!isset($obj[$project['lang']])) {
+                $obj[$project['lang']] = new \ArrayObject([]);
+            }
+
+            foreach ((array)$project['languages'] as $l) {
+                if (!isset($obj[$l]))  $obj[$l] = new \ArrayObject([]);
+            }
         }
 
-        if (!isset($obj[$project['lang']])) {
-            $obj[$project['lang']] = new \ArrayObject([]);
+        if ($this->param('nested')) {
+
+            if ($lang) {
+
+                $obj = $this->_resolveNested($obj);
+
+            } else {
+
+                foreach (array_keys((array)$obj) as $key) {
+                    $obj[$key] = $this->_resolveNested($obj[$key]);
+                }
+            }
         }
 
-        foreach ((array)$project['languages'] as $lang) {
-            if (!isset($obj[$lang]))  $obj[$lang] = new \ArrayObject([]);
+        return $obj;
+    }
+
+    protected function _resolveNested($obj) {
+
+        foreach (array_keys((array)$obj) as $key) {
+            if (\strpos($key, '.') !== false) {
+                $val = $obj[$key];
+                $parts = explode('.', $key);
+
+                if (!isset($obj[$parts[0]]) || !\is_array($obj[$parts[0]])) {
+                    $obj[$parts[0]] = [];
+                }
+
+                $obj[$parts[0]][$parts[1]] = $val;
+                unset($obj[$key]);
+            }
         }
 
         return $obj;
