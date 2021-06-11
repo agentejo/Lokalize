@@ -644,8 +644,12 @@
 
                     langs.forEach(function(lang) {
 
-                        if (project.values[lang] && project.values[lang][key] && project.values[lang][key].trim()) {
-                            project.done[lang]++
+                        if (project.values[lang] && typeof project.values[lang][key] === "string") {
+                            if (project.values[lang][key].trim() === "") {
+                                delete project.values[lang][key];
+                            } else {
+                                project.done[lang]++
+                            }
                         }
                     })
 
