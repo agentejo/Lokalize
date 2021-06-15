@@ -76,7 +76,7 @@
 
         <div class="uk-width-1-4">
             <div class="uk-form-icon uk-form uk-text-muted uk-display-block">
-                <i class="uk-icon-filter"></i>
+                <a class="uk-icon-filter" style="pointer-events: all" onclick="{ clearfilter }"></a>
                 <input class="uk-form-large uk-form-blank" type="text" ref="txtfilter" placeholder="@lang('Filter...')" onkeyup="{ updatefilter }">
 
                 <div class="uk-form-select filter-selector">
@@ -231,7 +231,7 @@
 
                 <div class="uk-form-row">
                     <label class="uk-text-small">@lang('Key')</label>
-                    <input class="uk-width-1-1" type="text" placeholder="@lang('Key name')" bind-event="input" bind="$key.name" required>
+                    <input ref="keyfield" class="uk-width-1-1" type="text" placeholder="@lang('Key name')" bind-event="input" bind="$key.name" required>
                 </div>
 
                 <div class="uk-form-row">
@@ -240,7 +240,7 @@
                 </div>
 
                 <div class="uk-form-row">
-                    <field-boolean bind="$key.multiline" label="@lang('Multiline')"></field-boolean>
+                    <field-boolean bind="$key.multiline" label="@lang('Multiline')" onchange="{ changeMultiline }"></field-boolean>
                 </div>
 
 
@@ -453,11 +453,12 @@
             this.$key = {
                 name: '',
                 info: '',
-                multiline: false
+                multiline: App.session.get('lokalize.new.multiline', false)
             };
 
             setTimeout(function() {
                 UIkit.modal($this.refs.modalkey).show();
+                $this.refs.keyfield.focus();
             }, 100);
         }
 
@@ -524,6 +525,8 @@
 
             UIkit.modal($this.refs.modalkey).hide();
 
+            this.keys = Object.keys(this.project.keys).sort();
+
             this.project.keys[this.$key.name] = {
                 info: this.$key.info,
                 multiline: this.$key.multiline
@@ -542,9 +545,13 @@
                 delete this.project.keys[this.$key._];
             }
 
-            this.keys = Object.keys(this.project.keys).sort();
+            this.keys.unshift(this.$key.name);
 
             this.$key = null;
+        }
+
+        changeMultiline(e) {
+            App.session.set('lokalize.new.multiline', e.target.checked);
         }
 
         suggestTranslation(e) {
@@ -595,8 +602,16 @@
             }, 250);
         }
 
+        clearfilter() {
+            this.refs.txtfilter.value = "";
+        }
+
         updatefilter(e) {
-            $this.visible = 20;
+            if (e.key === "Escape") {
+                this.clearfilter();
+            } else {
+                $this.visible = 20;
+            }
         }
 
         infilter(key) {
