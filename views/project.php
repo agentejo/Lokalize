@@ -558,7 +558,7 @@
                 defval = _.get(this.project.values, [this.project.lang, key].join('.'));
 
             if (!navigator.onLine || !defval) {
-                this.$suggestion = null;
+                this.$suggestion = {key:null};
                 return;
             }
 
