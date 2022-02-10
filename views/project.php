@@ -349,6 +349,7 @@
                         if (response && response._id) {
 
                             $this.project = response;
+                            $this.keys = Object.keys(response.keys).sort();
 
                             if (!$this.project.done || Array.isArray($this.project.done)) {
                                 $this.project.done = {};
