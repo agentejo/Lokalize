@@ -24,6 +24,7 @@ $this->module("lokalize")->extend([
                 'de' => 'German',
                 'he' => 'Hebrew',
                 'hi' => 'Hindi',
+                'hu' => 'Hungarian',
                 'is' => 'Icelandic',
                 'it' => 'Italian',
                 'id' => 'Indonesian',
